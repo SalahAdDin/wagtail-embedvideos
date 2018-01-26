@@ -1,16 +1,19 @@
 import json
 
-from django.core.urlresolvers import reverse
+try:
+    from django.urls import reverse
+except ImportError:  # Django<2.0
+    from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, render
 from wagtail.utils.pagination import paginate
 
-from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
-from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailadmin.utils import PermissionPolicyChecker
-from wagtail.wagtailadmin.utils import popular_tags_for_model
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Collection
-from wagtail.wagtailsearch import index as search_index
+from wagtail.admin.modal_workflow import render_modal_workflow
+from wagtail.admin.forms import SearchForm
+from wagtail.admin.utils import PermissionPolicyChecker
+from wagtail.admin.utils import popular_tags_for_model
+from wagtail.core import hooks
+from wagtail.core.models import Collection
+from wagtail.search import index as search_index
 
 from embed_video.backends import detect_backend
 
