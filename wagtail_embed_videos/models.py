@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 try:
     import urllib2
 except ImportError:
@@ -13,15 +10,20 @@ from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
-from django.core.urlresolvers import reverse
+
+try:
+    from django.urls import reverse
+except ImportError:  # Django<2.0
+    from django.core.urlresolvers import reverse
+
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 
-from wagtail.wagtailadmin.utils import get_object_usage
-from wagtail.wagtailcore.models import CollectionMember
-from wagtail.wagtailimages import get_image_model
-from wagtail.wagtailsearch import index
-from wagtail.wagtailsearch.queryset import SearchableQuerySetMixin
+from wagtail.admin.utils import get_object_usage
+from wagtail.core.models import CollectionMember
+from wagtail.images import get_image_model
+from wagtail.search import index
+from wagtail.search.queryset import SearchableQuerySetMixin
 
 from embed_video.fields import EmbedVideoField
 from embed_video.backends import detect_backend
@@ -52,7 +54,6 @@ YOUTUBE_RESOLUTIONS = [
 
 
 def create_thumbnail(model_instance):
-
     # CREATING IMAGE FROM THUMBNAIL
     backend = detect_backend(model_instance.url)
     thumbnail_url = backend.get_thumbnail_url()
@@ -99,7 +100,12 @@ class AbstractEmbedVideo(CollectionMember, index.Indexed, models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Created'))
     uploaded_by_user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, null=True, blank=True, editable=False, verbose_name=_('Uploader')
+        settings.AUTH_USER_MODEL,
+        null=True,
+        blank=True,
+        editable=False,
+        verbose_name=_('Uploader'),
+        on_delete=models.SET_NULL,
     )
 
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_('Tags'))
@@ -123,7 +129,7 @@ class AbstractEmbedVideo(CollectionMember, index.Indexed, models.Model):
         ]),
         index.FilterField('uploaded_by_user'),
     ]
-    
+
     def __str__(self):
         return self.title
 
