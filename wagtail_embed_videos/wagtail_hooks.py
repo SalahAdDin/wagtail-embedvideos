@@ -1,15 +1,18 @@
 from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib.staticfiles.templatetags.staticfiles import static
-from django.core import urlresolvers
+try:
+    from django.urls import reverse
+except ImportError:  # Django<2.0
+    from django.core.urlresolvers import reverse
 from django.utils.html import format_html, format_html_join
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ungettext
 
-from wagtail.wagtailadmin.search import SearchArea
-from wagtail.wagtailadmin.site_summary import SummaryItem
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailadmin.menu import MenuItem
+from wagtail.admin.search import SearchArea
+from wagtail.admin.site_summary import SummaryItem
+from wagtail.core import hooks
+from wagtail.admin.menu import MenuItem
 
 from wagtail_embed_videos import admin_urls
 from wagtail_embed_videos.api.admin.endpoints import EmbedVideosAdminAPIEndpoint
