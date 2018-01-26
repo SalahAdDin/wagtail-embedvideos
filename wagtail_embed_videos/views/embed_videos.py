@@ -3,17 +3,20 @@ import json
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
-from django.core.urlresolvers import reverse
+try:
+    from django.urls import reverse
+except ImportError:  # Django<2.0
+    from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 
 from wagtail.utils.pagination import paginate
-from wagtail.wagtailadmin.forms import SearchForm
-from wagtail.wagtailadmin import messages
-from wagtail.wagtailadmin.utils import PermissionPolicyChecker
-from wagtail.wagtailadmin.utils import permission_denied
-from wagtail.wagtailadmin.utils import popular_tags_for_model
-from wagtail.wagtailcore.models import Collection
-from wagtail.wagtailsearch import index as search_index
+from wagtail.admin.forms import SearchForm
+from wagtail.admin import messages
+from wagtail.admin.utils import PermissionPolicyChecker
+from wagtail.admin.utils import permission_denied
+from wagtail.admin.utils import popular_tags_for_model
+from wagtail.core.models import Collection
+from wagtail.search import index as search_index
 
 from wagtail_embed_videos import get_embed_video_model
 from wagtail_embed_videos.forms import get_embed_video_form
