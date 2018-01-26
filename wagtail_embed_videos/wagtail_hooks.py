@@ -24,7 +24,7 @@ from wagtail_embed_videos.permissions import permission_policy
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^embed_videos/', include(admin_urls, namespace='wagtail_embed_videos', app_name='wagtail_embed_videos')),
+        url(r'^embed_videos/', include(admin_urls, namespace='wagtail_embed_videos')),
     ]
 
 
