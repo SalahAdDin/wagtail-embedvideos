@@ -5,7 +5,6 @@ try:
 except ImportError:  # Django<2.0
     from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, render
-from wagtail.utils.pagination import paginate
 
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.forms import SearchForm
@@ -14,6 +13,7 @@ from wagtail.admin.utils import popular_tags_for_model
 from wagtail.core import hooks
 from wagtail.core.models import Collection
 from wagtail.search import index as search_index
+from wagtail.utils.pagination import paginate
 
 from embed_video.backends import detect_backend
 
