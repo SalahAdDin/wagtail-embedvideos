@@ -1,10 +1,8 @@
-from __future__ import absolute_import, unicode_literals
-
 from collections import OrderedDict
 
 from rest_framework.fields import Field
 
-from wagtail.wagtailimages.models import SourceImageIOError
+from wagtail.images.models import SourceImageIOError
 
 
 # TODO: Make a properly Embed Video Field for serialiation: have to return the url and his thumbnail
