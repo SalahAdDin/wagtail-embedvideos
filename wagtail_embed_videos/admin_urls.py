@@ -6,6 +6,7 @@ from wagtail_embed_videos.views import embed_videos
 # TODO: Delete comment lines, embed_videos only get a url, not upload files.
 # from wagtail_embed_videos.views import multiple
 
+app_name='wagtail_embed_videos'
 urlpatterns = [
     url(r'^$', embed_videos.index, name='index'),
     url(r'^(\d+)/$', embed_videos.edit, name='edit'),
