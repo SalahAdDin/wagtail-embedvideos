@@ -1,6 +1,6 @@
 from django.utils.functional import cached_property	
 
-from wagtail.wagtailcore.blocks import ChooserBlock
+from wagtail.core.blocks import ChooserBlock
 from embed_video.templatetags.embed_video_tags import VideoNode
 
 
