@@ -7,7 +7,7 @@ from django.db import migrations, models
 import django.db.models.deletion
 import embed_video.fields
 import taggit.managers
-import wagtail.wagtailsearch.index
+import wagtail.search.index
 
 
 class Migration(migrations.Migration):
