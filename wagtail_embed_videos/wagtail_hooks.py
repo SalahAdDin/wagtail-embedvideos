@@ -44,7 +44,7 @@ class EmbedVideosMenuItem(MenuItem):
 def register_embed_videos_menu_item():
     return EmbedVideosMenuItem(
         _('Videos'),
-        urlresolvers.reverse('wagtail_embed_videos:index'),
+        reverse('wagtail_embed_videos:index'),
         name='embed_videos',
         classnames='icon icon-media',
         order=301
@@ -67,7 +67,7 @@ def editor_js():
             window.chooserUrls.embedVideoChooser = '{0}';
         </script>
         """,
-        urlresolvers.reverse('wagtail_embed_videos:chooser')
+        reverse('wagtail_embed_videos:chooser')
     )
 
 
@@ -102,7 +102,7 @@ class EmbedVideosSearchArea(SearchArea):
 def register_embed_videos_search_area():
     return EmbedVideosSearchArea(
         _('Videos'),
-        urlresolvers.reverse('wagtail_embed_videos:index'),
+        reverse('wagtail_embed_videos:index'),
         name='embed_videos',
         classnames='icon icon-media',
         order=600
@@ -118,7 +118,7 @@ def register_embed_video_permissions_panel():
 def describe_collection_docs(collection):
     embed_videos_count = get_embed_video_model().objects.filter(collection=collection).count()
     if embed_videos_count:
-        url = urlresolvers.reverse('wagtail_embed_videos:index') + ('?collection_id=%d' % collection.id)
+        url = reverse('wagtail_embed_videos:index') + ('?collection_id=%d' % collection.id)
         return {
             'count': embed_videos_count,
             'count_text': ungettext(
