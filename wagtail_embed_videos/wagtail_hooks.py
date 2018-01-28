@@ -84,7 +84,7 @@ class EmbedVideosSummaryItem(SummaryItem):
 
 
 @hooks.register('construct_homepage_summary_items')
-def add_images_summary_item(request, items):
+def add_embed_videos_summary_item(request, items):
     items.append(EmbedVideosSummaryItem(request))
 
 
