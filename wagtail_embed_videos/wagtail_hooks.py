@@ -1,23 +1,37 @@
 from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib.staticfiles.templatetags.staticfiles import static
+
 try:
     from django.urls import reverse
 except ImportError:  # Django<2.0
     from django.core.urlresolvers import reverse
-from django.utils.html import format_html, format_html_join
+from django.utils.html import (
+    format_html,
+    format_html_join
+)
 from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import ungettext
+from django.utils.translation import (
+    ungettext,
+    ugettext
+)
 
-from wagtail.admin.search import SearchArea
-from wagtail.admin.site_summary import SummaryItem
 from wagtail.core import hooks
 from wagtail.admin.menu import MenuItem
+from wagtail.admin.rich_text import HalloPlugin
+import wagtail.admin.rich_text.editors.draftail.features as draftail_features
+from wagtail.admin.search import SearchArea
+from wagtail.admin.site_summary import SummaryItem
 
 from wagtail_embed_videos import admin_urls
+from wagtail_embed_videos import get_embed_video_model
 from wagtail_embed_videos.api.admin.endpoints import EmbedVideosAdminAPIEndpoint
 from wagtail_embed_videos.forms import GroupEmbedVideoPermissionFormSet
-from wagtail_embed_videos import get_embed_video_model
+from wagtail_embed_videos.rich_text import (
+    ContentstateEmbedVideoConversionRule,
+    EditorHTMLEmbedVideoConversionRule,
+    video_embedtype_handler
+)
 from wagtail_embed_videos.permissions import permission_policy
 
 
@@ -71,6 +85,50 @@ def editor_js():
     )
 
 
+@hooks.register('register_rich_text_features')
+def register_video_feature(features):
+    # define a handler for converting <embed embedtype="image"> tags into frontend HTML
+    features.register_embed_type('video', video_embedtype_handler)
+
+    # define a hallo.js plugin to use when the 'image' feature is active
+    features.register_editor_plugin(
+        'hallo', 'video',
+        HalloPlugin(
+            name='halloembedvideo',
+            js=['wagtail_embed_videos/js/hallo-plugins/hallo-embedvideo.js'],
+        )
+    )
+
+    # define how to convert between editorhtml's representation of images and
+    # the database representation
+    features.register_converter_rule('editorhtml', 'video', EditorHTMLEmbedVideoConversionRule)
+
+    # define a draftail plugin to use when the 'image' feature is active
+    features.register_editor_plugin(
+        'draftail', 'video', draftail_features.EntityFeature({
+            'type': 'VIDEO',
+            'icon': 'media',
+            'description': ugettext('Video'),
+            'source': 'ModalWorkflowSource',
+            'block': 'VideoBlock',
+            # Embed video create object with title, collection, tags a embedvideo object.
+            # From this object we can get the url, the video backend and the original thumbnail
+            'attributes': ['id', 'src', 'alt', ],  # TODO: I'm not sure about this
+            # Embed video create thumbnail inside Wagtail
+            'whitelist': {
+                'id': True,
+            }
+        })
+    )
+
+    # define how to convert between contentstate's representation of images and
+    # the database representation
+    features.register_converter_rule('contentstate', 'video', ContentstateEmbedVideoConversionRule)
+
+    # add 'image' to the set of on-by-default rich text features
+    features.default_features.append('video')
+
+
 class EmbedVideosSummaryItem(SummaryItem):
     order = 800
     template = 'wagtail_embed_videos/homepage/site_summary_videos.html'
@@ -87,7 +145,7 @@ class EmbedVideosSummaryItem(SummaryItem):
 
 
 @hooks.register('construct_homepage_summary_items')
-def add_images_summary_item(request, items):
+def add_embed_videos_summary_item(request, items):
     items.append(EmbedVideosSummaryItem(request))
 
 
