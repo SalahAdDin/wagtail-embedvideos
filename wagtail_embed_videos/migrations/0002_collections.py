@@ -3,7 +3,7 @@
 from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
-from wagtail.wagtailcore.models import Collection
+from wagtail.wagtailcore.models
 
 
 class Migration(migrations.Migration):
