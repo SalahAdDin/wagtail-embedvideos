@@ -11,8 +11,10 @@ function createEmbedVideoChooser(id) {
                 'embedVideoChosen': function(embedVideoData) {
                     input.val(embedVideoData.id);
                     previewEmbedVideo.attr({
-                        'src': embedVideoData.preview.url,
-                        'alt': embedVideoData.title
+                        src: embedVideoData.preview.url,
+                        width: embedVideoData.preview.width,
+                        height: embedVideoData.preview.height,
+                        alt: embedVideoData.title
                     });
                     chooserElement.removeClass('blank');
                     editLink.attr('href', embedVideoData.edit_link);
@@ -21,7 +23,7 @@ function createEmbedVideoChooser(id) {
         });
     });
 
-    $('.action-clear', chooserElement).click(function() {
+    $('.action-clear', chooserElement).on('click', function() {
         input.val('');
         chooserElement.addClass('blank');
     });
