@@ -130,6 +130,12 @@ You can extend the `EmbedVideo` model in the same way that `wagtail` image model
 Release Notes
 -------------
 
+__v0.4.0__
+
+ - Now is possible create video collections.
+ - Documentation about extend the embed video model.
+ - Documentation about embed video blocks for stream field. 
+
 __v0.3.0__
 
  - Changed the structure of "AbstractEmbedVideo", because "TagSearchable" is not used anymore;
@@ -137,12 +143,6 @@ __v0.3.0__
 __v0.2.5__
 
  - This is the last version compatible with Wagtail <= 1.6, because TagSearchable was deprecated and then removed.
-
-__v0.0.6__
-
- - Now is possible create video collections.
- - Documentation about extend the embed video model.
- - Documentation about embed video blocks for stream field. 
 
 __v0.0.5__
 
