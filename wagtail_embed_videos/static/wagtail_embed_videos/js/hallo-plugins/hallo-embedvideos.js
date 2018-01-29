@@ -1,6 +1,6 @@
 (function() {
     (function($) {
-        return $.widget('IKS.halloembedvideo', {
+        return $.widget('IKS.halloembedvideos', {
             options: {
                 uuid: '',
                 editable: null
