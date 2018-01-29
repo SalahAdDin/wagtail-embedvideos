@@ -74,11 +74,11 @@ def editor_js():
         '\n', '<script src="{0}"></script>',
         ((filename,) for filename in js_files)
     )
-
     return js_includes + format_html(
         """
         <script>
             window.chooserUrls.embedVideoChooser = '{0}';
+            registerHalloPlugin('halloembedvideos');
         </script>
         """,
         reverse('wagtail_embed_videos:chooser')
@@ -86,7 +86,7 @@ def editor_js():
 
 
 @hooks.register('register_rich_text_features')
-def register_video_feature(features):
+def register_embed_videos_feature(features):
     # define a handler for converting <embed embedtype="image"> tags into frontend HTML
     features.register_embed_type('video', video_embedtype_handler)
 
@@ -94,8 +94,8 @@ def register_video_feature(features):
     features.register_editor_plugin(
         'hallo', 'video',
         HalloPlugin(
-            name='halloembedvideo',
-            js=['wagtail_embed_videos/js/hallo-plugins/hallo-embedvideo.js'],
+            name='halloembedvideos',
+            js=['wagtail_embed_videos/js/hallo-plugins/hallo-embedvideos.js'],
         )
     )
 
