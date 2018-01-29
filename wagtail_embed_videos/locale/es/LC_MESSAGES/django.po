@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-30 10:28-0500\n"
+"POT-Creation-Date: 2018-01-29 16:49+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,13 +18,13 @@ msgstr ""
 
 #: forms.py:42
 msgid "Add"
-msgstr "Add"
+msgstr "Añadir"
 
 #: forms.py:42
 msgid "Add/edit embed videos you own"
 msgstr "Editar este video incrustado"
 
-#: forms.py:43 views/embed_videos.py:193
+#: forms.py:43 views/embed_videos.py:190
 msgid "Edit"
 msgstr "Editar"
 
@@ -32,23 +32,23 @@ msgstr "Editar"
 msgid "Edit any embed video"
 msgstr "Editar este video incrustado"
 
-#: models.py:91 templates/wagtail_embed_videos/embed_videos/usage.html:16
+#: models.py:90 templates/wagtail_embed_videos/embed_videos/usage.html:16
 msgid "Title"
 msgstr "Título"
 
-#: models.py:95
+#: models.py:94
 msgid "Thumbnail"
 msgstr "Miniatura"
 
-#: models.py:101
+#: models.py:100
 msgid "Created"
 msgstr "Creado"
 
-#: models.py:103
+#: models.py:102
 msgid "Uploader"
 msgstr "Cargador"
 
-#: models.py:106
+#: models.py:105
 msgid "Tags"
 msgstr "Etiquetas"
 
@@ -145,7 +145,7 @@ msgstr "Editando"
 
 #: templates/wagtail_embed_videos/embed_videos/index.html:4
 #: templates/wagtail_embed_videos/embed_videos/index.html:24
-#: wagtail_hooks.py:43 wagtail_hooks.py:96
+#: wagtail_hooks.py:43 wagtail_hooks.py:101
 msgid "Videos"
 msgstr "Videos"
 
@@ -213,11 +213,11 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            <span>%(total)s</span> video\n"
+"            <span>%(total)s</span> Video\n"
 "        "
 msgstr[1] ""
 "\n"
-"            <span>%(total)s</span> videos\n"
+"            <span>%(total)s</span> Videos\n"
 "        "
 
 #: templates/wagtail_embed_videos/permissions/includes/video_permissions_formset.html:4
@@ -228,38 +228,38 @@ msgstr "Videos incrustados"
 msgid "Add an embed video permission"
 msgstr "Escoja un video incrustado"
 
-#: views/embed_videos.py:41 views/embed_videos.py:47
+#: views/embed_videos.py:38 views/embed_videos.py:44
 msgid "Search videos"
 msgstr "Buscar videos"
 
-#: views/embed_videos.py:118
+#: views/embed_videos.py:115
 #, python-brace-format
 msgid "Video '{0}' updated."
 msgstr "Video '{0}' actualizado."
 
-#: views/embed_videos.py:124
+#: views/embed_videos.py:121
 msgid "Edit again"
 msgstr "Editar de nuevo"
 
-#: views/embed_videos.py:130
+#: views/embed_videos.py:127
 msgid "The video could not be saved due to errors."
 msgstr "El video no puede ser guardado debido a errores."
 
-#: views/embed_videos.py:162
+#: views/embed_videos.py:159
 #, python-brace-format
 msgid "Video '{0}' deleted."
 msgstr "Video '{0}' eliminado."
 
-#: views/embed_videos.py:186
+#: views/embed_videos.py:183
 #, python-brace-format
 msgid "Video '{0}' added."
 msgstr "Video '{0}' añadido."
 
-#: views/embed_videos.py:199
+#: views/embed_videos.py:196
 msgid "The video could not be created due to errors."
 msgstr "Este video no puede ser creado debido a errores."
 
-#: wagtail_hooks.py:117
+#: wagtail_hooks.py:122
 #, python-format
 msgid "%(count)s video"
 msgid_plural "%(count)s videos"

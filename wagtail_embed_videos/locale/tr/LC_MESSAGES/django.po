@@ -204,7 +204,13 @@ msgid_plural ""
 "            <span>%(total)s</span> Videos\n"
 "        "
 msgstr[0] ""
+"\n"
+"            <span>%(total)s</span> Video\n"
+"        "
 msgstr[1] ""
+"\n"
+"            <span>%(total)s</span> Videolar\n"
+"        "
 
 #: templates/wagtail_embed_videos/permissions/includes/video_permissions_formset.html:4
 msgid "Embed video permissions"
