@@ -1,4 +1,4 @@
-{% load wagtailadmin_tags embed_video_tags wagtailimages_tags %}
+{% load wagtailimages_tags wagtailadmin_tags embed_video_tags %}
 {% load i18n %}
 {% if embed_videos %}
     {% if is_searching %}
@@ -16,7 +16,7 @@
     <ul class="listing horiz images chooser">
         {% for embed_video in embed_videos %}
             <li>
-                <a class="image-choice" href="{% url 'wagtail_embed_videos:embed_video_chosen' embed_video.id %}">
+                <a class="image-choice" href="{% if will_select_format %}{% url 'wagtail_embed_videos:chooser_select_format' embed_video.id %}{% else %}{% url 'wagtail_embed_videos:embed_video_chosen' embed_video.id %}{% endif %}">
                     <div class="image">
                         {% if embed_video.thumbnail %}
                             {% image embed_video.thumbnail max-165x165 class="show-transparency" %}

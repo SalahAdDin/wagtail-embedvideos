@@ -2,14 +2,19 @@ from django import forms
 from django.forms.models import modelform_factory
 from django.utils.translation import ugettext as _
 
+from wagtail.wagtailadmin import widgets
 from wagtail.wagtailadmin.forms import BaseCollectionMemberForm
 from wagtail.wagtailadmin.forms import collection_member_permission_formset_factory
 from wagtail.wagtailimages.edit_handlers import AdminImageChooser
+from wagtail.wagtailimages.formats import get_image_formats
 
-from wagtail_embed_videos import widgets
 from wagtail_embed_videos.models import EmbedVideo
 
 from .permissions import permission_policy as embed_video_permission_policy
+
+
+class BaseEmbedVideoForm(BaseCollectionMemberForm):
+    permission_policy = embed_video_permission_policy
 
 
 def get_embed_video_form(model):
@@ -24,16 +29,25 @@ def get_embed_video_form(model):
 
     return modelform_factory(
         model,
-        form=EmbedVideoInsertionForm,
+        form=BaseEmbedVideoForm,
         fields=fields,
+        # formfield_callback=formfield_for_dbfield,
         widgets={
-            # 'tags': widgets.AdminTagWidget,
+            'tags': widgets.AdminTagWidget,
             'thumbnail': AdminImageChooser,
         })
 
 
-class EmbedVideoInsertionForm(BaseCollectionMemberForm):
-    permission_policy = embed_video_permission_policy
+class EmbedVideoInsertionForm(forms.Form):
+    """
+    Form for selecting parameters of the image (e.g. format) prior to insertion
+    into a rich text area
+    """
+    format = forms.ChoiceField(
+        choices=[(format.name, format.label) for format in get_image_formats()],
+        widget=forms.RadioSelect
+    )
+    alt_text = forms.CharField()
 
 
 GroupEmbedVideoPermissionFormSet = collection_member_permission_formset_factory(
