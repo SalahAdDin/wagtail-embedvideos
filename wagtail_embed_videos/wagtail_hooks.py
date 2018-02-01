@@ -1,15 +1,16 @@
 from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib.staticfiles.templatetags.staticfiles import static
-from django.core import urlresolvers
+from django.urls import reverse
 from django.utils.html import format_html, format_html_join
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ungettext
 
+from wagtail.wagtailadmin.menu import MenuItem
+from wagtail.wagtailadmin.rich_text import HalloPlugin
 from wagtail.wagtailadmin.search import SearchArea
 from wagtail.wagtailadmin.site_summary import SummaryItem
 from wagtail.wagtailcore import hooks
-from wagtail.wagtailadmin.menu import MenuItem
 
 from wagtail_embed_videos import admin_urls
 from wagtail_embed_videos.api.admin.endpoints import EmbedVideosAdminAPIEndpoint
@@ -41,7 +42,7 @@ class EmbedVideosMenuItem(MenuItem):
 def register_embed_videos_menu_item():
     return EmbedVideosMenuItem(
         _('Videos'),
-        urlresolvers.reverse('wagtail_embed_videos:index'),
+        reverse('wagtail_embed_videos:index'),
         name='embed_videos',
         classnames='icon icon-media',
         order=301
@@ -57,15 +58,27 @@ def editor_js():
         '\n', '<script src="{0}"></script>',
         ((filename,) for filename in js_files)
     )
-
     return js_includes + format_html(
         """
         <script>
             window.chooserUrls.embedVideoChooser = '{0}';
+            registerHalloPlugin('halloembedvideos');
         </script>
         """,
-        urlresolvers.reverse('wagtail_embed_videos:chooser')
+        reverse('wagtail_embed_videos:chooser')
     )
+
+
+@hooks.register('register_rich_text_features')
+def register_embed_videos_feature(features):
+    features.register_editor_plugin(
+        'hallo', 'embedvideos',
+        HalloPlugin(
+            name='halloembedvideos',
+            js=['wagtail_embed_videos/js/hallo-plugins/hallo-embedvideos.js'],
+        )
+    )
+    features.default_features.append('embedvideos')
 
 
 class EmbedVideosSummaryItem(SummaryItem):
@@ -99,7 +112,7 @@ class EmbedVideosSearchArea(SearchArea):
 def register_embed_videos_search_area():
     return EmbedVideosSearchArea(
         _('Videos'),
-        urlresolvers.reverse('wagtail_embed_videos:index'),
+        reverse('wagtail_embed_videos:index'),
         name='embed_videos',
         classnames='icon icon-media',
         order=600
@@ -115,7 +128,7 @@ def register_embed_video_permissions_panel():
 def describe_collection_docs(collection):
     embed_videos_count = get_embed_video_model().objects.filter(collection=collection).count()
     if embed_videos_count:
-        url = urlresolvers.reverse('wagtail_embed_videos:index') + ('?collection_id=%d' % collection.id)
+        url = reverse('wagtail_embed_videos:index') + ('?collection_id=%d' % collection.id)
         return {
             'count': embed_videos_count,
             'count_text': ungettext(
