@@ -130,6 +130,10 @@ You can extend the `EmbedVideo` model in the same way that `wagtail` image model
 Release Notes
 -------------
 
+__v0.4.3__
+
+ - Finally, a fairly sufficient `hallo.js` insert embedvideo plugin's implementation
+
 __v0.4.0__
 
  - Now is possible create video collections.
