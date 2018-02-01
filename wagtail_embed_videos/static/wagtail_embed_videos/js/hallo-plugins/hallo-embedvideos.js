@@ -1,11 +1,11 @@
-(function() {
-    (function($) {
+(function () {
+    (function ($) {
         return $.widget('IKS.halloembedvideos', {
             options: {
                 uuid: '',
                 editable: null
             },
-            populateToolbar: function(toolbar) {
+            populateToolbar: function (toolbar) {
                 var button, widget;
 
                 widget = this;
@@ -18,15 +18,15 @@
                     command: null
                 });
                 toolbar.append(button);
-                return button.on('click', function(event) {
+                return button.on('click', function (event) {
                     var insertionPoint, lastSelection;
 
                     lastSelection = widget.options.editable.getSelection();
                     insertionPoint = $(lastSelection.endContainer).parentsUntil('.richtext').last();
                     return ModalWorkflow({
-                        url: window.chooserUrls.embedVideoChooser,
+                        url: window.chooserUrls.embedVideoChooser + '?select_format=true',
                         responses: {
-                            embedVideoChosen: function(embedVideoData) {
+                            embedVideoChosen: function (embedVideoData) {
                                 var elem;
 
                                 elem = $(embedVideoData.html).get(0);
