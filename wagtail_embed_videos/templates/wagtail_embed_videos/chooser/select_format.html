@@ -5,10 +5,7 @@
 
 <div class="row row-flush nice-padding">
     <div class="col6">
-        {% video embed_video.url as my_video %}
-            <img src="{{ my_video.thumbnail }}">
-            {#  image my_video.thumbnail max-800x600 class="show-transparency" #}
-        {% endvideo %}
+        {% image embed_video.thumbnail max-800x600 class="show-transparency" %}
     </div>
     <div class="col6">
         <form action="{% url 'wagtail_embed_videos:chooser_select_format' embed_video.id %}" method="POST" novalidate>
