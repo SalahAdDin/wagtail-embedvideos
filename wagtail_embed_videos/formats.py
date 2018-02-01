@@ -2,6 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.utils.html import escape
 from django.utils.translation import ugettext_lazy as _
+from embed_video.backends import detect_backend
 
 from wagtail.utils.apps import get_app_submodules
 
@@ -18,8 +19,8 @@ class EmbedVideoFormat(object):
         Return string of additional attributes to go on the HTML element
         when outputting this video within a rich text editor field
         """
-        return 'data-embedtype="video" data-id="%d" data-format="%s" data-alt="%s" ' % (
-            video.id, self.name, alt_text
+        return 'contenteditable="false" data-embedtype="media" data-id="%d" data-url="%s" data-alt="%s" ' % (
+            video.id, video.url, alt_text
         )
 
     def video_to_editor_html(self, video, alt_text):
@@ -28,6 +29,14 @@ class EmbedVideoFormat(object):
         )
 
     def video_to_html(self, video, alt_text, extra_attributes=''):
+        backend = detect_backend(video.url)
+
+        if self.name == 'fullwidth':
+            width = video.thumbnail.width
+            height = video.thumbnail.height
+        else:
+            width = 480
+            height = 360
 
         if self.classnames:
             class_attr = 'class="%s" ' % escape(self.classnames)
@@ -36,7 +45,7 @@ class EmbedVideoFormat(object):
 
         return '<iframe %s%ssrc="%s" width="%d" height="%d" alt="%s" frameborder="0" allowfullscreen>' % (
             extra_attributes, class_attr,
-            video, video.thumbnail.width, video.thumbnail.height, alt_text
+            backend.url, width, height, alt_text
         )
 
 
