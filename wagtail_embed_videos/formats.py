@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.utils.html import escape
 from django.utils.translation import ugettext_lazy as _
 from embed_video.backends import detect_backend
@@ -16,11 +14,11 @@ class EmbedVideoFormat(object):
 
     def editor_attributes(self, video, alt_text):
         """
-        Return string of additional attributes to go on the HTML element
+        Return additional attributes to go on the HTML element
         when outputting this video within a rich text editor field
         """
         return 'contenteditable="false" data-embedtype="media" data-id="%d" data-url="%s" data-alt="%s" ' % (
-            video.id, video.url, alt_text
+            video.id, video.url, escape(alt_text),
         )
 
     def video_to_editor_html(self, video, alt_text):
@@ -45,7 +43,7 @@ class EmbedVideoFormat(object):
 
         return '<iframe %s%ssrc="%s" width="%d" height="%d" alt="%s" frameborder="0" allowfullscreen>' % (
             extra_attributes, class_attr,
-            backend.url, width, height, alt_text
+            backend.url, width, height, escape(alt_text)
         )
 
 
