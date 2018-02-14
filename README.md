@@ -127,6 +127,13 @@ You can extend the `EmbedVideo` model in the same way that `wagtail` image model
 `WAGTAILEMBEDVIDEO_VIDEO_MODEL`.
 
 
+TODO
+----
+
+ - Improve API:
+   - Add a properly  EndPoint: http://docs.wagtail.io/en/latest/advanced_topics/api/v2/configuration.html
+   - Add others: http://docs.wagtail.io/en/latest/advanced_topics/api/v2/configuration.html
+
 Release Notes
 -------------
 
