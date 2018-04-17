@@ -105,7 +105,7 @@ class AbstractEmbedVideo(CollectionMember, index.Indexed, models.Model):
         blank=True,
         editable=False,
         verbose_name=_('Uploader'),
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NUL,
     )
 
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_('Tags'))
