@@ -1,18 +1,21 @@
 from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib.staticfiles.templatetags.staticfiles import static
+
 try:
     from django.urls import reverse
 except ImportError:  # Django<2.0
     from django.core.urlresolvers import reverse
+
 from django.utils.html import format_html, format_html_join
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ungettext
 
+from wagtail.admin.menu import MenuItem
 from wagtail.admin.search import SearchArea
+from wagtail.wagtailadmin.rich_text import HalloPlugin
 from wagtail.admin.site_summary import SummaryItem
 from wagtail.core import hooks
-from wagtail.admin.menu import MenuItem
 
 from wagtail_embed_videos import admin_urls
 from wagtail_embed_videos.api.admin.endpoints import EmbedVideosAdminAPIEndpoint
@@ -60,15 +63,27 @@ def editor_js():
         '\n', '<script src="{0}"></script>',
         ((filename,) for filename in js_files)
     )
-
     return js_includes + format_html(
         """
         <script>
             window.chooserUrls.embedVideoChooser = '{0}';
+            registerHalloPlugin('halloembedvideos');
         </script>
         """,
         reverse('wagtail_embed_videos:chooser')
     )
+
+
+@hooks.register('register_rich_text_features')
+def register_embed_videos_feature(features):
+    features.register_editor_plugin(
+        'hallo', 'embedvideos',
+        HalloPlugin(
+            name='halloembedvideos',
+            js=['wagtail_embed_videos/js/hallo-plugins/hallo-embedvideos.js'],
+        )
+    )
+    features.default_features.append('embedvideos')
 
 
 class EmbedVideosSummaryItem(SummaryItem):
@@ -87,7 +102,7 @@ class EmbedVideosSummaryItem(SummaryItem):
 
 
 @hooks.register('construct_homepage_summary_items')
-def add_images_summary_item(request, items):
+def add_embed_videos_summary_item(request, items):
     items.append(EmbedVideosSummaryItem(request))
 
 

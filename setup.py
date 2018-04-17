@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='wagtail_embed_videos',
-    version='0.3.3',
+    version='0.4.3',
     description='Embed Videos for Wagtail CMS.',
     long_description=(
         "Simple app that works similar to wagtailimages,"

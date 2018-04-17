@@ -127,10 +127,23 @@ You can extend the `EmbedVideo` model in the same way that `wagtail` image model
 `WAGTAILEMBEDVIDEO_VIDEO_MODEL`.
 
 
+TODO
+----
+
+ - Improve API:
+   - Add a properly  EndPoint: http://docs.wagtail.io/en/latest/advanced_topics/api/v2/configuration.html
+   - Add others: http://docs.wagtail.io/en/latest/advanced_topics/api/v2/configuration.html
+
 Release Notes
 -------------
 
 __v0.5.0__
+
+ - Full support for **Wagtail** `2.x.x` and **Django* `2.x.x`
+
+__v0.4.3__
+
+ - Finally, a fairly sufficient `hallo.js` insert embedvideo plugin's implementation
 
 __v0.4.0__
 

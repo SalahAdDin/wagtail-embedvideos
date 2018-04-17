@@ -3,10 +3,12 @@ import json
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
+
 try:
     from django.urls import reverse
 except ImportError:  # Django<2.0
     from django.core.urlresolvers import reverse
+
 from django.http import HttpResponse
 
 from wagtail.utils.pagination import paginate

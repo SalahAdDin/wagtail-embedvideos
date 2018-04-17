@@ -1,14 +1,11 @@
-{% load embed_video_tags %}
+{% load wagtailimages_tags embed_video_tags %}
 {% load i18n %}
 {% trans "Choose a format" as choose_str %}
 {% include "wagtailadmin/shared/header.html" with title=choose_str %}
 
 <div class="row row-flush nice-padding">
     <div class="col6">
-        {% video embed_video.url as my_video %}
-            here?
-            <img src="{{ my_video.thumbnail }}">
-        {% endvideo %}
+        {% image embed_video.thumbnail max-800x600 class="show-transparency" %}
     </div>
     <div class="col6">
         <form action="{% url 'wagtail_embed_videos:chooser_select_format' embed_video.id %}" method="POST" novalidate>
