@@ -182,7 +182,6 @@ def chooser_upload(request):
 
 def chooser_select_format(request, embed_video_id):
     embed_video = get_object_or_404(get_embed_video_model(), id=embed_video_id)
-    print(embed_video)
 
     if request.POST:
         form = EmbedVideoInsertionForm(request.POST, initial={'alt_text': embed_video.default_alt_text})
@@ -205,8 +204,6 @@ def chooser_select_format(request, embed_video_id):
                 },
                 'html': format.video_to_editor_html(embed_video, form.cleaned_data['alt_text']),
             })
-
-            print(video_json)
 
             return render_modal_workflow(
                 request,
