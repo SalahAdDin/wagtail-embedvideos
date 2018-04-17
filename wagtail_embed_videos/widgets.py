@@ -5,8 +5,8 @@ import json
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 
-from wagtail.wagtailadmin.widgets import AdminChooser
-from wagtail_embed_videos import get_embed_video_model
+from wagtail.admin.widgets import AdminChooser
+from wagtail_embed_videos.models import get_embed_video_model
 
 
 class AdminEmbedVideoChooser(AdminChooser):
