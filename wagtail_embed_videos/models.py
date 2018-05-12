@@ -16,7 +16,7 @@ try:
 except ImportError:  # Django<2.0
     from django.core.urlresolvers import reverse
 
-    from django.core.files import File
+from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 
 from wagtail.admin.utils import get_object_usage
