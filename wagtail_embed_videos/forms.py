@@ -2,11 +2,11 @@ from django import forms
 from django.forms.models import modelform_factory
 from django.utils.translation import ugettext as _
 
-from wagtail.wagtailadmin import widgets
-from wagtail.wagtailadmin.forms import BaseCollectionMemberForm
-from wagtail.wagtailadmin.forms import collection_member_permission_formset_factory
-from wagtail.wagtailimages.edit_handlers import AdminImageChooser
-from wagtail.wagtailimages.formats import get_image_formats
+from wagtail.admin import widgets
+from wagtail.admin.forms import BaseCollectionMemberForm
+from wagtail.admin.forms import collection_member_permission_formset_factory
+from wagtail.images.edit_handlers import AdminImageChooser
+from wagtail.images.formats import get_image_formats
 
 from wagtail_embed_videos.models import EmbedVideo
 
