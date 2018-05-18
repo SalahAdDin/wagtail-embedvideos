@@ -165,3 +165,7 @@ class EmbedVideo(AbstractEmbedVideo):
         'thumbnail',
         'tags',
     )
+
+    class Meta:
+        verbose_name = _('embed video')
+        verbose_name_plural = _('embed videos')
